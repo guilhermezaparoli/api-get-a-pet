@@ -1,6 +1,8 @@
 const User = require("../models/User.js")
 const bcrypt = require("bcrypt")
 const createUserToken = require("../helpers/create-user-token")
+const getToken = require("../helpers/get-token")
+const jwt = require("jsonwebtoken")
 
 
 module.exports = class UserController {
@@ -76,12 +78,12 @@ module.exports = class UserController {
             const newUser = await user.save()
             await createUserToken(newUser, req, res)
         } catch (error) {
-            res.status(500).json({message: error})
+            res.status(500).json({ message: error })
         }
     }
 
     static async login(req, res) {
-        const {email, password} = req.body
+        const { email, password } = req.body
 
         if (!email) {
             res.status(442).json({
@@ -110,12 +112,47 @@ module.exports = class UserController {
 
         const checkPassword = await bcrypt.compare(password, user.password)
 
-        if(!checkPassword){
+        if (!checkPassword) {
             res.status(442).json({
                 message: "Senha inválida!"
             })
             return
         }
         await createUserToken(user, req, res)
+    }
+
+    static async checkUser(req, res) {
+        let currentUser;
+        if (req.headers.authorization) {
+            const token = getToken(req)
+            const decoded = jwt.verify(token, "nossosecret")
+
+            currentUser = await User.findById(decoded.id)
+            currentUser.password = undefined
+        } else {
+            currentUser = null
+        }
+
+        res.status(200).send(currentUser)
+    }
+    static async getUserById(req, res) {
+        const { id } = req.params
+
+        const user = await User.findById(id).select("-password")
+console.log(user);
+        if (!user) {
+            res.status(442).json({
+                message: "Usuário não encontrado"
+            })
+            return
+        }
+        res.status(200).json({ user })
+    }
+
+    static async editUser(req,res) {
+        res.status(200).json({
+            message: "Deu certo!"
+        })
+        return 
     }
 }
