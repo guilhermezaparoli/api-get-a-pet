@@ -8,27 +8,10 @@ Get A pet consiste em uma plataforma onde os usuários podem encontrar Pets para
 <br/>
 Curso de Node da plataforma Udemy
 
-## Documentação da API
-
-- Rota Cadastro do usuário
-
-![Register User](https://github.com/guilhermezaparoli/Assets/blob/main/api-get-a-pet/Screenshot_1.png)
-
-- Rota Cadastro do Pet
-
-![Register Pet](https://github.com/guilhermezaparoli/Assets/blob/main/api-get-a-pet/Screenshot_2.png)
-
-- Rota de minhas adoções
-
-![My Adoptions](https://github.com/guilhermezaparoli/Assets/blob/main/api-get-a-pet/Screenshot_3.png)
-
-- Para acessar toda documentação inicialize a aplicação e acesse a rota http://localhost:3333/doc/
-
 # Tecnologias usadas:
 
 - NodeJS
 - Express
-- Swagger
 
 # Como executar o projeto
 
