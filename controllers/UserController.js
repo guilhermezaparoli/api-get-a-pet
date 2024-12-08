@@ -140,7 +140,6 @@ module.exports = class UserController {
         const { id } = req.params
 
         const user = await User.findById(id).select("-password")
-        console.log(user);
         if (!user) {
             res.status(442).json({
                 message: "Usuário não encontrado"
@@ -169,7 +168,6 @@ module.exports = class UserController {
         }
 
         const userExists = await User.findOne({ email })
-        console.log(user.email !== email && userExists);
         if (!user) {
             res.status(442).json({
                 message: "Usuário não encontrado"

@@ -13,7 +13,6 @@ if(!token){
 
 try {
    const verified = jwt.verify(token, 'nossosecret')
-   console.log(verified);
    req.user = verified
    next()
 } catch (error) {
